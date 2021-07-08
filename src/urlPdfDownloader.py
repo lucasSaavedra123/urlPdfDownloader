@@ -1,13 +1,20 @@
 import urllib.request
+from urllib.error import HTTPError
 
-
-def get_pdf_files_from_url(url,first,last):
+def get_pdf_files_from_url(url, first, last):
     files = []
+
     for index in range(first,last+1):
-        download_url = url + str(index) + '.pdf'
-        response = urllib.request.urlopen(download_url)
-        print(response.status)
-        files.append(response.read())
+        try:
+            download_url = url + str(index) + '.pdf'
+            response = urllib.request.urlopen(download_url)
+            print(response.status)
+            files.append(response.read())
+        except (HTTPError, ValueError):
+            print("Warning: Failure with "+ url + str(index) + '.pdf')
+
+
+
 
     return files
 
