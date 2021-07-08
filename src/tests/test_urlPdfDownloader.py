@@ -14,3 +14,11 @@ def test_only_one_file_in_downloadable_url():
 
 def test_only_five_files_in_downloadable_url():
     assert len(urlPdfDownloader.get_pdf_files_from_url(downloadable_url,1,5)) == 5
+
+def test_all_files_are_bytes():
+    flag = True
+    for file in urlPdfDownloader.get_pdf_files_from_url(downloadable_url,1,5):
+        if not isinstance(file,bytes):
+            flag = False
+
+    assert flag
