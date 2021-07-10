@@ -7,24 +7,21 @@ def get_pdf_files_from_url(url, first, last):
     for index in range(first,last+1):
         try:
             download_url = url + str(index) + '.pdf'
-            response = urllib.request.urlopen(download_url)
-            print(response.status)
+            response = urllib.request.urlopen(download_url,timeout=5)
             files.append(response.read())
         except (HTTPError, ValueError):
             print("Warning: Failure with "+ url + str(index) + '.pdf')
 
-
-
-
     return files
 
-"""
-pdf_path = "http://www.repositori.uji.es/xmlui/bitstream/handle/10234/5875/bolAuto"
+
+get_pdf_files_from_url( "http://www.repositori.uji.es/xmlui/bitstream/handle/10234/5875/bolAuto",1,10)
+
+"""pdf_path = "http://www.repositori.uji.es/xmlui/bitstream/handle/10234/5875/bolAuto"
 def download_file(download_url, filename):
     response = urllib.request.urlopen(download_url)    
     file = open(filename + ".pdf", 'wb')
-    file.write(response.read())
-    file.close()
+    print(type(file))
  
 
 for i in range(7,100):
